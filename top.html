@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KAKUZA25 Overlay</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@700;800&family=Titan+One&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: transparent;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 20px;
+      font-family: 'Titan One', 'Fredoka', sans-serif;
+    }
+
+    .overlay-container {
+      position: relative;
+      width: min(1140px, 100vw);
+      height: 68px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .usn-full-topbar {
+      position: relative;
+      width: 100%;
+      height: 52px;
+      flex-shrink: 0;
+      z-index: 14;
+      background: linear-gradient(180deg, #4da8ff 0%, #1b77f2 55%, #0f56c4 100%);
+      border-top: 3px solid #ffffff;
+      border-left: 3px solid #ffffff;
+      border-right: 3px solid #ffffff;
+      border-radius: 12px 12px 0 0;
+      box-shadow:
+        0 -4px 14px rgba(8, 42, 98, 0.35),
+        inset 0 2px 10px rgba(255, 255, 255, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      overflow: hidden;
+    }
+
+    .usn-full-topbar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 45%;
+      height: 100%;
+      background: linear-gradient(
+        115deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.4) 50%,
+        transparent 100%
+      );
+      animation: usnShine 5s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes usnShine {
+      0% { left: -120%; }
+      45%, 100% { left: 150%; }
+    }
+
+    .usn-text {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      font-size: 26px;
+      color: #ffffff;
+      letter-spacing: 1.4px;
+      -webkit-text-stroke: 5.5px #1049a3;
+      paint-order: stroke fill;
+      filter: drop-shadow(0px 3px 0px #082b66);
+      z-index: 2;
+    }
+
+    .usn-char {
+      display: inline-block;
+      animation: usnWave 2.8s ease-in-out infinite;
+    }
+
+    @keyframes usnWave {
+      0%, 70%, 100% { transform: translateY(0) scale(1); }
+      35% { transform: translateY(-3px) scale(1.04); }
+    }
+
+    .usn-mini-star {
+      width: 26px;
+      height: 26px;
+      z-index: 2;
+      filter: drop-shadow(0 2px 3px rgba(10, 42, 95, 0.5));
+      animation: miniStarPulse 1.8s ease-in-out infinite alternate;
+    }
+
+    @keyframes miniStarPulse {
+      0% { transform: rotate(-10deg) scale(0.92); }
+      100% { transform: rotate(10deg) scale(1.08); }
+    }
+
+    .top-playful-ribbon {
+      position: relative;
+      width: 100%;
+      height: 16px;
+      flex-shrink: 0;
+      z-index: 15;
+      border-radius: 0;
+      border-top: 3px solid #ffffff;
+      border-bottom: 3px solid #1660cf;
+      border-left: 3px solid #ffffff;
+      border-right: 3px solid #ffffff;
+      overflow: hidden;
+      background: repeating-linear-gradient(
+        -45deg,
+        #7ec4ff 0px,
+        #7ec4ff 22px,
+        #a6daff 22px,
+        #a6daff 44px
+      );
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+    }
+
+    .top-playful-ribbon::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.55);
+      pointer-events: none;
+    }
+
+    .vertical-pill {
+      position: relative;
+      width: 5px;
+      height: 10px;
+      background: #ffffff;
+      border-radius: 4px;
+      box-shadow: 0 0 0 2px #2c82f7;
+      z-index: 2;
+    }
+
+    .vertical-pill.alt {
+      height: 7px;
+      background: #d8f0ff;
+      box-shadow: 0 0 0 1.5px #4595ff;
+    }
+  </style>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <path id="chubbyStarPath" d="M 50,10 L 61,33 L 86,37 L 68,55 L 72,80 L 50,68 L 28,80 L 32,55 L 14,37 L 39,33 Z" />
+      <clipPath id="innerStarClip">
+        <path d="M 50,15 L 59.5,35 L 81,38.5 L 65.5,54 L 69,75.5 L 50,65 L 31,75.5 L 34.5,54 L 19,38.5 L 40.5,35 Z" stroke-linejoin="round" />
+      </clipPath>
+      <linearGradient id="pastelBlueFill" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#b8dcff" />
+        <stop offset="50%" stop-color="#d4ebff" />
+        <stop offset="100%" stop-color="#b0d7ff" />
+      </linearGradient>
+      <g id="pastelStarGraphic">
+        <use href="#chubbyStarPath" fill="#8ec5ff" stroke="#8ec5ff" stroke-width="18" stroke-linejoin="round" stroke-linecap="round" />
+        <use href="#chubbyStarPath" fill="#ffffff" stroke="#ffffff" stroke-width="11" stroke-linejoin="round" stroke-linecap="round" />
+        <use href="#chubbyStarPath" fill="url(#pastelBlueFill)" stroke="url(#pastelBlueFill)" stroke-width="2" stroke-linejoin="round" />
+        <g clip-path="url(#innerStarClip)">
+          <rect x="-10" y="38" width="120" height="14" fill="rgba(255, 255, 255, 0.52)" transform="rotate(-42 50 50)" />
+          <rect x="-10" y="60" width="120" height="6" fill="rgba(255, 255, 255, 0.45)" transform="rotate(-42 50 50)" />
+          <polygon points="48,24 49.5,28 54,28.5 50.5,31 51.5,35 48,32.8 44.5,35 45.5,31 42,28.5 46.5,28" fill="#ffffff" opacity="0.95" />
+          <polygon points="62,53 63.8,57.5 68.5,58 65,61 66,65.5 62,63 58,65.5 59,61 55.5,58 60.2,57.5" fill="#ffffff" opacity="0.95" />
+          <circle cx="43" cy="48" r="2" fill="#ffffff" opacity="0.9" />
+          <circle cx="57" cy="41" r="1.8" fill="#ffffff" opacity="0.85" />
+        </g>
+      </g>
+    </defs>
+  </svg>
+
+  <div class="overlay-container">
+    <div class="usn-full-topbar">
+      <svg class="usn-mini-star" viewBox="0 0 100 100">
+        <use href="#pastelStarGraphic" />
+      </svg>
+      <div class="usn-text" id="usnText"></div>
+      <svg class="usn-mini-star" viewBox="0 0 100 100" style="animation-delay: -0.9s;">
+        <use href="#pastelStarGraphic" />
+      </svg>
+    </div>
+    <div class="top-playful-ribbon" id="topRibbon"></div>
+  </div>
+
+  <script>
+    const usnString = "USN: KAKUZA25 (FOLLOW TO JOIN)";
+    const usnTextContainer = document.getElementById("usnText");
+
+    [...usnString].forEach((ch, idx) => {
+      const span = document.createElement("span");
+      span.className = "usn-char";
+      span.innerHTML = ch === " " ? "&nbsp;" : ch;
+      span.style.animationDelay = (idx * 0.06) + "s";
+      usnTextContainer.appendChild(span);
+    });
+
+    const topRibbon = document.getElementById("topRibbon");
+    for (let i = 0; i < 18; i++) {
+      const pill = document.createElement("div");
+      pill.className = "vertical-pill" + (i % 2 === 1 ? " alt" : "");
+      topRibbon.appendChild(pill);
+    }
+  </script>
+</body>
+</html>
